@@ -11,20 +11,25 @@ class DriverFactory:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        # ✅ CI environment → local Chrome
+        # ✅ CI (GitHub Actions)
         if os.getenv("CI"):
             return webdriver.Chrome(options=options)
 
-        # ✅ Docker environment → Selenium Grid
-        for i in range(5):
-            try:
-                driver = webdriver.Remote(
-                    command_executor="http://selenium:4444/wd/hub",
-                    options=options
-                )
-                return driver
-            except Exception:
-                print(f"Retrying Selenium... {i+1}")
-                time.sleep(5)
+        # ✅ Try Docker Selenium Grid
+        try:
+            for i in range(3):
+                try:
+                    driver = webdriver.Remote(
+                        command_executor="http://selenium:4444/wd/hub",
+                        options=options
+                    )
+                    return driver
+                except Exception:
+                    print(f"Retry Docker Selenium... {i+1}")
+                    time.sleep(3)
+        except:
+            pass
 
-        raise Exception("Selenium not available")
+        # ✅ FINAL FALLBACK → Local Chrome
+        print("Falling back to local Chrome...")
+        return webdriver.Chrome(options=options)
