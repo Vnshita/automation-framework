@@ -1,5 +1,7 @@
 import time
 from selenium import webdriver
+import os
+
 
 class DriverFactory:
 
@@ -19,3 +21,10 @@ class DriverFactory:
                 time.sleep(5)
 
         raise Exception("Selenium not available")
+if os.getenv("CI"):
+    driver = webdriver.Chrome(options=options)
+else:
+    driver = webdriver.Remote(
+        command_executor="http://selenium:4444/wd/hub",
+        options=options
+    )
