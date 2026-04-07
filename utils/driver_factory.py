@@ -1,30 +1,30 @@
+import os
 import time
 from selenium import webdriver
-import os
-
 
 class DriverFactory:
 
     @staticmethod
     def get_driver():
-        url = "http://selenium:4444/wd/hub"
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
 
-        for i in range(5):  # retry 5 times
+        # ✅ CI environment → local Chrome
+        if os.getenv("CI"):
+            return webdriver.Chrome(options=options)
+
+        # ✅ Docker environment → Selenium Grid
+        for i in range(5):
             try:
                 driver = webdriver.Remote(
-                    command_executor=url,
-                    options=webdriver.ChromeOptions()
+                    command_executor="http://selenium:4444/wd/hub",
+                    options=options
                 )
                 return driver
             except Exception:
-                print(f"Retrying Selenium connection... {i+1}")
+                print(f"Retrying Selenium... {i+1}")
                 time.sleep(5)
 
         raise Exception("Selenium not available")
-if os.getenv("CI"):
-    driver = webdriver.Chrome(options=options)
-else:
-    driver = webdriver.Remote(
-        command_executor="http://selenium:4444/wd/hub",
-        options=options
-    )
