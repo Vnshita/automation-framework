@@ -1,0 +1,10 @@
+browser: chrome
+headless: false
+implicit_wait: 10
+
+env: qa
+
+environments:
+  dev: https://the-internet.herokuapp.com/login
+  qa: https://the-internet.herokuapp.com/login
+  prod: https://the-internet.herokuapp.com/login

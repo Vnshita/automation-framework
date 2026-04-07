@@ -1,0 +1,16 @@
+selenium==4.20.0
+pytest==8.2.0
+pytest-html==4.1.1
+pytest-xdist==3.5.0
+pytest-rerunfailures==14.0
+pyyaml==6.0.1
+webdriver-manager==4.0.1
+requests==2.31.0
+allure-pytest==2.13.5
+playwright==1.44.0
+pytest-playwright==0.5.0
+selenium
+pytest
+pytest-html
+allure-pytest
+pyyaml
