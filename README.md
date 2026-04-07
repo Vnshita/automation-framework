@@ -5,7 +5,7 @@
 ![Pytest](https://img.shields.io/badge/Pytest-Framework-orange)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
 ![CI/CD](https://img.shields.io/badge/GitHub%20Actions-CI/CD-success)
-
+![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Tests](https://github.com/Vnshita/automation-framework/actions/workflows/tests.yml/badge.svg)
 ## 📌 Overview
 A scalable automation testing framework built using Selenium, Pytest, Docker, and GitHub Actions.
